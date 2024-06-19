@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>receipt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    
+
+
+
+
+
+<div class="container" *ngIf="recieptData else loading">
+    
+
+    <div class="modal main__modal ">
+        <div class="modal__content">
+            <span class="modal__close btn__close--modal">×</span>
+            <h3 class="modal__title">Add Item</h3>
+            <hr><br>
+            <div class="modal__items">
+                <select class="input my-1">
+                    <option value="None">None</option>
+                    <option value="None">LBC Padala</option>
+                </select>
+            </div>
+            <br><hr>
+            <div class="model__footer">
+                <button class="btn btn-light mr-2 btn__close--modal">
+                    Cancel
+                </button>
+                <button class="btn btn-light btn__close--modal ">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <br><br><br>
+    <!--==================== SHOW INVOICE ====================-->
+    <div class="invoices">
+        
+        
+        <div>
+            <div class="card__header--title ">
+                
+                <p>July 17, 2020 at 3:28 am </p>
+            </div>
+    
+           <br>
+        </div>
+        
+
+        <div class="table invoice" id="print-section">
+            <div class="box"></div>
+            <div class="logo">
+                
+            </div>
+            
+            <div class="invoice__header--title">
+                <p></p>
+                <p class="invoice__header--title-1"><img class="logo-b" src="./img/Bloo.png" alt=""></p>
+                <p></p>
+            </div>
+
+            
+            <div  class="invoice__header--item">
+                
+                <div>
+                    <h4 style="font-weight: bold; color: red;">Date d echeance du reglement : 08/08/2023</h4>
+                    <h2>Invoice To:</h2>
+                    <p>Customer Name :{{recieptData.invoice.customerName}}</p>
+                    <p>Email Address :{{recieptData.invoice.customerEmailAddress}}</p>
+                    <p>Telephone :{{recieptData.invoice.phoneNumber}}</p>
+                    <p>Website :{{recieptData.invoice.websiteLink}}</p>
+                </div>
+                <div>
+                        <div class="invoice__header--item1">
+                            <p>REF</p>
+                            <span>{{recieptData.invoice.billNumber}}</span>
+                        </div>
+                        <div class="invoice__header--item2">
+                            <p>Date</p>
+                            <span>{{recieptData.invoice.created_at | date: 'mediumDate'}}</span>
+                        </div>
+                        <div class="invoice__header--item2">
+                            <p>Due Date</p>
+                            <span>{{recieptData.invoice.dateLimit}}</span>
+                        </div>
+                        <!-- <div class="invoice__header--item2">
+                            <p>Reference</p>
+                            <span>REF-{{recieptData.invoice.id}}</span>
+                        </div> -->
+                    
+                </div>
+            </div>
+
+            <div class="table py1">
+
+                <div class="table--heading3">
+                    <p>RF</p>
+                    <p>Item Description</p>
+                    <p>Unit Price</p>
+                    <p>Qty</p>
+                    <p>Total</p>
+                </div>
+    
+                <!-- item 1 -->
+                <div *ngFor="let items of itemsData" class="table--items3">
+                    <p>00.</p>
+                    <p>{{items.product_name}}</p>
+                    <p>{{items.unit_price | currency:'XOF'}}</p>
+                    <p>{{items.quantity}}</p>
+                    <p>{{items.total | currency: 'XOF'}}</p>
+                </div>
+
+                
+                
+            </div>
+           
+
+            <div  class="invoice__subtotal">
+                <div>
+                    <h2 style="font-size: 16px;">{{recieptData.invoice.small_note}}</h2> 
+                    <P class="small___note">Paiement a 10 jours reception de la facture</P>  
+                </div>
+                <div>
+                    <div class="invoice__subtotal--item1">
+                        <p style="font-size: 16px;" class="min">Sub Total</p>
+                        <span style="font-size: 16px;" class="min"> {{recieptData.invoice.sub_total  | currency:'XOF'}}</span>
+                    </div>
+                    <div class="invoice__subtotal--item1">
+                        <p style="font-size: 16px;" class="min">Droit D'accises (2%)</p>
+                        <span style="font-size: 16px;" class="min">{{recieptData.invoice.droit_daccises | currency: 'XOF'}}</span>
+                    </div>
+                    <div class="invoice__subtotal--item1">
+                        <p style="font-size: 16px;" class="min">TVA(19,25%)</p>
+                        <span style="font-size: 16px;" class="min">{{recieptData.invoice.tax_in}}</span>
+                    </div>
+                    <div class="invoice__subtotal--item1">
+                        <p style="font-size: 16px;"  class="min">Montant TTC</p>
+                        <span style="font-size: 16px;" class="min">{{recieptData.invoice.montant_ttc | currency: 'XOF'}}</span>
+                    </div>
+                    
+                    
+                    <div class="invoice__subtotal--item2">
+                        <p style="font-size: 16px;"  class="min">AIR(2,2%)</p>
+                        <span style="font-size: 16px;"  class="min">  {{recieptData.invoice.reduction_in  | currency:'XOF'}}</span>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="invoice__total">
+                <div>
+                    <h2 style="font-size: 18px;">Tel : 243 598 890 / + 1 914 298 8748</h2>
+                    <p>High speed satellite internet for Africa </p>
+                     <p>Address Email :infobloosat.com</p>
+                     <p>Address : {{recieptData.invoice.postalAddress}}</p>
+                     <p>Nom : {{recieptData.invoice.compantName}}</p>
+                </div>
+                
+                <div>
+                    <div class="grand__total" >
+                        <div class="grand__total--items">
+                            <p style="color: white;">Total</p>
+                            <span style="color: white;">{{recieptData.invoice.total | currency:'XOF'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="invoice__total">
+                <div>
+                    <h4 style="font-size: 14px;" class="co0r_bancaires">coordonnees Bancaires</h4>
+                    <p style="font-size: 14px;" >Non du compte: BLOOSAT SA</p>
+                    <p style="font-size: 14px;" > Banque: CBC BANK</p>
+                    <P style="font-size: 14px;" >Code BANQUE: 10008</P>
+                    <p style="font-size: 14px;" >Code GUICHET : 00030</p>
+                    <p style="font-size: 14px;" >Numero du compte: 37130978401</p>
+                    <p style="font-size: 14px;" >Cle : 46</p>
+                </div>
+                <div>
+                    <div class="info" >
+                        <div>
+                           <p style="font-weight: bold;">SA au capital de {{capital_num | currency: 'XOF'}}</p>
+                           <p>Rc: RCYAO/2016/B/703</p>
+                           <P>NUI : M 071612552616 Y</P>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+           
+
+
+
+    
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+   
+
+
+
